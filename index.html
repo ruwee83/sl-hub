@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="si" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#07122b">
+<meta name="description" content="SL Hub: Sri Lanka news headlines, island-wide weather and FM radio in one place.">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="SL Hub">
+<title>SL Hub - ශ්‍රී ලංකා පුවත්, කාලගුණය, රේඩියෝ</title>
+<link rel="manifest" href="manifest.json">
+<link rel="icon" type="image/svg+xml" href="logo.svg">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=Noto+Sans+Sinhala:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<a class="skip" href="#main" data-i18n="skip">ප්‍රධාන අන්තර්ගතයට යන්න</a>
+
+<header class="top">
+  <div class="wrap top-in">
+    <a class="brand" href="#top" aria-label="SL Hub"><img src="logo.svg" alt="" width="38" height="38"><span class="wm"><b>SL</b> Hub</span></a>
+    <nav class="links" aria-label="Sections">
+      <a href="#news" data-i18n="nNews">පුවත්</a>
+      <a href="#weather" data-i18n="nWeather">කාලගුණය</a>
+      <a href="#radio" data-i18n="nRadio">රේඩියෝ</a>
+    </nav>
+    <div class="tools">
+      <span class="pill" id="navClock" aria-hidden="true"></span>
+      <button type="button" class="tbtn" id="themeBtn">☀</button>
+      <button type="button" class="tbtn" id="langBtn" data-i18n-aria="langAria">EN</button>
+    </div>
+  </div>
+</header>
+
+<div class="ticker" id="ticker" hidden>
+  <span class="tk-label" data-i18n="tkLabel">අලුත්ම</span>
+  <div class="tk-track"><div class="tk-run" id="tkRun"></div></div>
+</div>
+
+<main id="main">
+<section class="hero" id="top-hero">
+  <div class="sky" id="sky" role="img" data-i18n-aria="skyAria">
+    <div class="stars"></div>
+    <div class="orb moon"></div>
+    <div class="orb sun"></div>
+    <div class="sea"><div class="glint"></div></div>
+  </div>
+  <div class="wrap hero-in">
+    <h1 data-i18n="heroH">ශ්‍රී ලංකාව, මේ මොහොතේ</h1>
+    <p class="lede" data-i18n="heroP">අලුත්ම පුවත්, ඔබේ නගරයේ කාලගුණය සහ ප්‍රියතම රේඩියෝ නාලිකා, එකම තැනක.</p>
+    <div class="hero-cta">
+      <button type="button" class="btn gold" id="heroPlay"><span aria-hidden="true">▶</span> <span data-i18n="heroPlay">රේඩියෝව අහන්න</span></button>
+      <a class="btn ghost" href="#news" data-i18n="heroRead">අද පුවත් කියවන්න</a>
+    </div>
+    <div class="hero-foot">
+      <div class="hclock">
+        <div class="big" id="heroClock"></div>
+        <div class="hdate" id="heroDate"></div>
+        <div class="hlab" data-i18n="heroNow">කොළඹ වේලාව</div>
+      </div>
+      <div class="hero-wx" id="heroWx"></div>
+    </div>
+  </div>
+  <svg class="edge" viewBox="0 0 1440 70" preserveAspectRatio="none" aria-hidden="true"><path d="M0 44C160 10 320 66 520 40S880 8 1080 40s240 22 360-8V70H0Z"/></svg>
+</section>
+
+<section class="sec" id="news">
+  <div class="wrap">
+    <div class="sec-head">
+      <div><h2 data-i18n="newsH">අලුත්ම පුවත්</h2><p class="sub" data-i18n="newsSub"></p></div>
+      <div class="tools-row">
+        <input class="field" id="q" type="search" data-i18n-ph="searchPh" placeholder="පුවත් සොයන්න">
+        <button type="button" class="btn ghost sm" id="refresh" data-i18n="refresh">නැවුම් කරන්න</button>
+      </div>
+    </div>
+    <div class="chips" id="catChips"></div>
+    <div class="chips" id="langChips"></div>
+    <p class="status" id="updated" aria-live="polite"></p>
+    <div id="newsBody">
+      <div class="news-top">
+        <div id="leadBox"></div>
+        <ul class="wire" id="wireBox"></ul>
+      </div>
+      <div class="stories" id="gridBox"></div>
+    </div>
+    <button type="button" class="btn ghost more" id="more" hidden data-i18n="more">තවත් පුවත්</button>
+    <details class="srcs" id="srcs" hidden><summary data-i18n="sources">පුවත් ප්‍රභව</summary><ul id="srcList"></ul></details>
+  </div>
+</section>
+
+<section class="sec alt" id="weather">
+  <div class="wrap">
+    <div class="sec-head">
+      <div><h2 data-i18n="weatherH">කාලගුණය</h2><p class="sub" data-i18n="weatherSub"></p></div>
+    </div>
+    <div class="wx-grid">
+      <div class="wx-detail" id="wxDetail" aria-live="polite"></div>
+      <aside class="spine-wrap">
+        <h3 data-i18n="spineH">උතුරේ සිට දකුණට</h3>
+        <p class="sub" data-i18n="spineSub">නගරයක් තෝරන්න</p>
+        <ol class="spine" id="spine"></ol>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="radio">
+  <div class="wrap">
+    <div class="sec-head">
+      <div><h2 data-i18n="radioH">SL Radio</h2><p class="sub" data-i18n="radioSub"></p></div>
+    </div>
+    <div class="radio-grid">
+      <div class="np">
+        <div class="np-top">
+          <div class="np-art" id="npArt" aria-hidden="true">📻</div>
+          <div class="np-meta"><div class="np-name" id="npName">—</div><div class="np-st" id="npStatus" aria-live="polite"></div></div>
+          <button type="button" class="ib big" id="npFav" data-i18n-aria="fav">☆</button>
+        </div>
+        <div class="dial">
+          <div class="freq" id="npFreq"></div>
+          <div class="eq" id="eq" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div>
+          <div class="scale" aria-hidden="false">
+            <div class="ticks"></div>
+            <div class="marks" id="dialMarks"></div>
+            <div class="needle" id="needle"></div>
+          </div>
+          <div class="labels" id="dialLabels" aria-hidden="true"></div>
+        </div>
+        <div class="ctrls">
+          <button type="button" class="ib big" id="rPrev" data-i18n-aria="prev">⏮</button>
+          <button type="button" class="play" id="rPlay">▶</button>
+          <button type="button" class="ib big" id="rNext" data-i18n-aria="next">⏭</button>
+          <label class="vol"><span class="sr" data-i18n="vol">ශබ්දය</span><input type="range" id="rVol" min="0" max="100" value="80"></label>
+        </div>
+        <div class="np-foot">
+          <button type="button" class="btn ghost sm" id="rSleep"></button>
+          <button type="button" class="btn ghost sm" id="rData" data-i18n="dataBtn">Data භාවිතය</button>
+        </div>
+      </div>
+      <div class="rbrowse">
+        <div class="tools-row">
+          <input class="field" id="rSearch" type="search" data-i18n-ph="rSearch" placeholder="නාලිකා සොයන්න">
+          <button type="button" class="btn ghost sm" id="rFind" data-i18n="findOnline">Online සොයන්න</button>
+          <button type="button" class="btn gold sm" id="rAdd" data-i18n="addStation">නාලිකාවක් එකතු කරන්න</button>
+        </div>
+        <div class="chips" id="rTabs"></div>
+        <ul class="stlist" id="rList"></ul>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer class="foot">
+  <div class="wrap">
+    <img src="logo.svg" alt="" width="34" height="34">
+    <div><b>SL Hub</b><p data-i18n="footerNote"></p></div>
+  </div>
+</footer>
+
+<!-- පහළ mini player -->
+<div class="mini" id="mini" hidden>
+  <span class="m-art" id="miniArt" aria-hidden="true">📻</span>
+  <span class="m-tx"><b id="miniName"></b><span id="miniStatus"></span></span>
+  <button type="button" class="m-play" id="miniPlay">▶</button>
+  <a class="m-go" href="#radio" aria-label="SL Radio">📻</a>
+</div>
+
+<!-- නාලිකා එකතු/සංස්කරණ -->
+<div class="modal" id="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+  <div class="sheet">
+    <h3 id="modalTitle">නාලිකාවක් එකතු කරන්න</h3>
+    <label class="fl"><span data-i18n="lName">නම</span><input id="fName" placeholder="Hiru FM"></label>
+    <label class="fl"><span data-i18n="lFreq">සංඛ්‍යාතය</span><input id="fFreq" placeholder="96.1" inputmode="decimal"></label>
+    <label class="fl"><span data-i18n="lUrl">Stream URL</span><input id="fUrl" placeholder="https://..." inputmode="url"></label>
+    <label class="fl"><span data-i18n="lGenre">භාෂාව</span>
+      <select id="fGenre"><option value="Sinhala">සිංහල</option><option value="Tamil">தமிழ்</option><option value="English">English</option><option value="Mixed">Mixed</option></select></label>
+    <label class="fl"><span data-i18n="lBitrate">Bitrate</span><input id="fBitrate" type="number" inputmode="numeric" min="0" max="512" placeholder="64"></label>
+    <label class="fl"><span data-i18n="lEmoji">Emoji</span><input id="fEmoji" placeholder="📻" maxlength="2"></label>
+    <div class="acts">
+      <button type="button" class="btn ghost" id="cancelBtn" data-i18n="cancel">අවලංගු</button>
+      <button type="button" class="btn danger" id="deleteBtn" data-i18n="del" hidden>මකන්න</button>
+      <button type="button" class="btn gold" id="saveBtn" data-i18n="save">සුරකින්න</button>
+    </div>
+  </div>
+</div>
+
+<!-- Online සෙවුම -->
+<div class="modal" id="omodal" role="dialog" aria-modal="true" aria-labelledby="oTitle">
+  <div class="sheet tall">
+    <h3 id="oTitle" data-i18n="oTitle">Online නාලිකා සොයන්න</h3>
+    <div class="tools-row">
+      <input class="field" id="oQuery" data-i18n-ph="oPh" placeholder="නම">
+      <button type="button" class="btn gold sm" id="oGo" data-i18n="oGo">සොයන්න</button>
+    </div>
+    <label class="check"><input type="checkbox" id="oLow"><span data-i18n="oLow">අඩු data</span></label>
+    <p class="hint" data-i18n="oHint"></p>
+    <ul class="olist" id="oList"><li class="empty" data-i18n="oInit"></li></ul>
+    <div class="acts"><button type="button" class="btn ghost" id="oClose" data-i18n="close">වසන්න</button></div>
+  </div>
+</div>
+
+<!-- Data භාවිතය -->
+<div class="modal" id="dmodal" role="dialog" aria-modal="true" aria-labelledby="dTitle">
+  <div class="sheet">
+    <h3 id="dTitle" data-i18n="dTitle">Data භාවිතය</h3>
+    <div class="dsum" id="dSum"></div>
+    <div id="dBars"></div>
+    <p class="hint" data-i18n="dNote"></p>
+    <div class="acts">
+      <button type="button" class="btn danger" id="dReset" data-i18n="dReset">මකන්න</button>
+      <button type="button" class="btn ghost" id="dClose" data-i18n="close">වසන්න</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<audio id="audio" preload="none"></audio>
+
+<script src="app.js"></script>
+</body>
+</html>
