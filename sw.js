@@ -1,5 +1,5 @@
-const CACHE = 'slhub-site-v2';
-const FILES = ['./', './index.html', './style.css', './app.js', './logo.svg', './manifest.json', './icon-192.png', './icon-512.png'];
+const CACHE = 'slhub-site-v3';
+const FILES = ['./', './index.html', './style.css', './app.js', './logo-512.png', './manifest.json', './icon-192.png', './icon-512.png'];
 
 self.addEventListener('install', e => {
   e.waitUntil(caches.open(CACHE).then(c => c.addAll(FILES)));
