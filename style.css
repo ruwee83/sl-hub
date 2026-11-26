@@ -131,7 +131,7 @@ h2 { font-size: clamp(1.8rem, 3.6vw, 2.7rem); font-weight: 700; letter-spacing: 
 .empty { color: var(--mut); padding: 28px 0; max-width: 56ch }
 
 /* ---------- news ---------- */
-.news-top { display: grid; grid-template-columns: 1.5fr 1fr; gap: clamp(28px, 5vw, 64px); align-items: start }
+.news-top { display: grid; grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr); gap: clamp(28px, 5vw, 64px); align-items: start }
 .cat-local { --cc: var(--c-local) } .cat-business { --cc: var(--c-business) } .cat-sports { --cc: var(--c-sports) } .cat-entertainment { --cc: var(--c-entertainment) }
 .lead { position: relative; border-left: 4px solid var(--cc, var(--c-local)); padding: 4px 44px 4px 24px }
 .lead-t { display: block; font-size: clamp(1.55rem, 2.9vw, 2.35rem); font-weight: 700; letter-spacing: -.02em; line-height: 1.22; text-decoration: none }
@@ -164,7 +164,8 @@ html[lang="si"] .lead-t { line-height: 1.4; letter-spacing: 0 }
 @keyframes sh { 0% { background-position: 200% 0 } 100% { background-position: -200% 0 } }
 
 /* ---------- weather ---------- */
-.wx-grid { display: grid; grid-template-columns: 1.65fr 1fr; gap: clamp(24px, 4vw, 56px); align-items: start }
+.wx-grid { display: grid; grid-template-columns: minmax(0, 1.65fr) minmax(0, 1fr); gap: clamp(24px, 4vw, 56px); align-items: start }
+.wx-grid > *, .news-top > *, .radio-grid > * { min-width: 0 }
 .wx-detail { background: var(--panel); border: 1px solid var(--line); border-radius: 28px; padding: clamp(20px, 3vw, 34px); min-height: 360px }
 .wx-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; flex-wrap: wrap }
 .wx-head h3 { font-size: clamp(1.5rem, 2.6vw, 2rem); font-weight: 700 }
@@ -339,3 +340,9 @@ body.has-mini .foot { padding-bottom: 110px }
   *, *::before, *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important }
   .tk-track { overflow-x: auto }
 }
+
+.sitelinks { margin-top: 40px }
+.sitelinks h3 { font-size: 1.05rem }
+.sl-row { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px }
+.sl-row .chip { display: inline-block; text-decoration: none }
+.sl-row .chip:hover { border-color: var(--accent); color: var(--ink) }
