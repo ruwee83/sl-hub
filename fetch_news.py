@@ -21,20 +21,15 @@ SOURCES = [
     ("uthayan",   "Uthayan",          "ta", "local",         "https://newuthayan.com/feed/"),
     # සිංහල අමතර මූලාශ්‍ර (BBC සහ Google News server වලට විවෘතයි)
     ("bbcsi",     "BBC සිංහල",        "si", "local",         "https://feeds.bbci.co.uk/sinhala/rss.xml"),
+    ("puvath2",  "ලංකා පුවත්",       "si", "local",         "https://feeds.feedburner.com/Lankapuvath"),
     ("adasi",     "අද දෙරණ",          "si", "local",         "https://sinhala.adaderana.lk/rss.php"),
-    ("gnews_si", "Google News", "si", "local", "https://news.google.com/rss/search?q=%E0%B7%81%E0%B7%8A%E2%80%8D%E0%B6%BB%E0%B7%93+%E0%B6%BD%E0%B6%82%E0%B6%9A%E0%B7%8F&hl=si&gl=LK&ceid=LK:si"),
-    ("gnews_si2", "Google News", "si", "local", "https://news.google.com/rss/search?q=%E0%B6%9A%E0%B7%9C%E0%B7%85%E0%B6%B9&hl=si&gl=LK&ceid=LK:si"),
-    ("gnews_si3", "Google News", "si", "local", "https://news.google.com/rss/search?q=%E0%B6%BB%E0%B6%A2%E0%B6%BA&hl=si&gl=LK&ceid=LK:si"),
-    ("gnews_si4", "Google News", "si", "business", "https://news.google.com/rss/search?q=%E0%B6%86%E0%B6%BB%E0%B7%8A%E0%B6%AE%E0%B7%92%E0%B6%9A%E0%B6%BA&hl=si&gl=LK&ceid=LK:si"),
-    ("gnews_si5", "Google News", "si", "sports", "https://news.google.com/rss/search?q=%E0%B6%9A%E0%B7%8A%E2%80%8D%E0%B6%BB%E0%B7%92%E0%B6%9A%E0%B6%A7%E0%B7%8A&hl=si&gl=LK&ceid=LK:si"),
-    ("gnews_si6", "Google News", "si", "entertainment", "https://news.google.com/rss/search?q=%E0%B6%A0%E0%B7%92%E0%B6%AD%E0%B7%8A%E2%80%8D%E0%B6%BB%E0%B6%B4%E0%B6%A7&hl=si&gl=LK&ceid=LK:si"),
 ]
 
 MAX_PER_SOURCE = 30
 MAX_TOTAL = 400
 MAX_AGE_DAYS = 7
 MAX_BYTES = 3_000_000
-UA = "Mozilla/5.0 (compatible; SLHubNewsBot/1.0; +https://github.com)"
+UA = "Mozilla/5.0 (compatible; SLHub/1.0; RSS reader; +https://ruwee83.github.io/sl-hub/)"
 
 KW = {
     "sports": r"\b(cricket|t20|odi|test match|world cup|fifa|football|rugby|olympic|tournament|wicket|batsman|bowler|athlet|tennis|league)\b|ක්‍රිකට්|ක්‍රීඩා|තරඟ|කඩුල්ල",
