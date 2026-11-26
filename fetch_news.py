@@ -19,6 +19,11 @@ SOURCES = [
     ("puvath",    "ලංකා පුවත්",       "si", "local",         "https://sinhala.lankapuvath.lk/feed/"),
     ("sarasaviya","සරසවිය",           "si", "entertainment", "https://sarasaviya.lk/rss.xml"),
     ("uthayan",   "Uthayan",          "ta", "local",         "https://newuthayan.com/feed/"),
+    # සිංහල අමතර මූලාශ්‍ර (BBC සහ Google News server වලට විවෘතයි)
+    ("bbcsi",     "BBC සිංහල",        "si", "local",         "https://feeds.bbci.co.uk/sinhala/rss.xml"),
+    ("adasi",     "අද දෙරණ",          "si", "local",         "https://sinhala.adaderana.lk/rss.php"),
+    ("gnews_si",  "Google News",      "si", "local",         "https://news.google.com/rss?hl=si&gl=LK&ceid=LK:si"),
+    ("gnews_si2", "Google News",      "si", "local",         "https://news.google.com/rss/search?q=%E0%B7%81%E0%B7%8A%E2%80%8D%E0%B6%BB%E0%B7%93+%E0%B6%BD%E0%B6%82%E0%B6%9A%E0%B7%8F%E0%B7%80&hl=si&gl=LK&ceid=LK:si"),
 ]
 
 MAX_PER_SOURCE = 30
@@ -114,12 +119,17 @@ def build(fetcher=fetch, now=None):
             n = 0
             for p in parsed[:MAX_PER_SOURCE]:
                 if p["link"] in seen: continue
+                src_name = name
+                if sid.startswith("gnews") and " - " in p["title"]:
+                    # Google News: "සිරස්තලය - ප්‍රකාශකයා" -> ප්‍රකාශකයා මූලාශ්‍රය ලෙස
+                    head, pub = p["title"].rsplit(" - ", 1)
+                    if head and pub: p["title"], src_name = head.strip(), pub.strip()[:40]
                 dt = p["dt"] or now
                 if dt < cutoff or dt > now + timedelta(hours=6): continue
                 seen.add(p["link"])
                 items.append({
                     "id": hashlib.sha1(p["link"].encode()).hexdigest()[:12],
-                    "title": p["title"], "link": p["link"], "source": name, "lang": lang,
+                    "title": p["title"], "link": p["link"], "source": src_name, "lang": lang,
                     "cat": classify(p["title"], cat), "ts": int(dt.timestamp()), "summary": p["summary"],
                 })
                 n += 1
