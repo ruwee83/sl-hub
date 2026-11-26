@@ -22,8 +22,12 @@ SOURCES = [
     # සිංහල අමතර මූලාශ්‍ර (BBC සහ Google News server වලට විවෘතයි)
     ("bbcsi",     "BBC සිංහල",        "si", "local",         "https://feeds.bbci.co.uk/sinhala/rss.xml"),
     ("adasi",     "අද දෙරණ",          "si", "local",         "https://sinhala.adaderana.lk/rss.php"),
-    ("gnews_si",  "Google News",      "si", "local",         "https://news.google.com/rss?hl=si&gl=LK&ceid=LK:si"),
-    ("gnews_si2", "Google News",      "si", "local",         "https://news.google.com/rss/search?q=%E0%B7%81%E0%B7%8A%E2%80%8D%E0%B6%BB%E0%B7%93+%E0%B6%BD%E0%B6%82%E0%B6%9A%E0%B7%8F%E0%B7%80&hl=si&gl=LK&ceid=LK:si"),
+    ("gnews_si", "Google News", "si", "local", "https://news.google.com/rss/search?q=%E0%B7%81%E0%B7%8A%E2%80%8D%E0%B6%BB%E0%B7%93+%E0%B6%BD%E0%B6%82%E0%B6%9A%E0%B7%8F&hl=si&gl=LK&ceid=LK:si"),
+    ("gnews_si2", "Google News", "si", "local", "https://news.google.com/rss/search?q=%E0%B6%9A%E0%B7%9C%E0%B7%85%E0%B6%B9&hl=si&gl=LK&ceid=LK:si"),
+    ("gnews_si3", "Google News", "si", "local", "https://news.google.com/rss/search?q=%E0%B6%BB%E0%B6%A2%E0%B6%BA&hl=si&gl=LK&ceid=LK:si"),
+    ("gnews_si4", "Google News", "si", "business", "https://news.google.com/rss/search?q=%E0%B6%86%E0%B6%BB%E0%B7%8A%E0%B6%AE%E0%B7%92%E0%B6%9A%E0%B6%BA&hl=si&gl=LK&ceid=LK:si"),
+    ("gnews_si5", "Google News", "si", "sports", "https://news.google.com/rss/search?q=%E0%B6%9A%E0%B7%8A%E2%80%8D%E0%B6%BB%E0%B7%92%E0%B6%9A%E0%B6%A7%E0%B7%8A&hl=si&gl=LK&ceid=LK:si"),
+    ("gnews_si6", "Google News", "si", "entertainment", "https://news.google.com/rss/search?q=%E0%B6%A0%E0%B7%92%E0%B6%AD%E0%B7%8A%E2%80%8D%E0%B6%BB%E0%B6%B4%E0%B6%A7&hl=si&gl=LK&ceid=LK:si"),
 ]
 
 MAX_PER_SOURCE = 30
@@ -120,6 +124,8 @@ def build(fetcher=fetch, now=None):
             for p in parsed[:MAX_PER_SOURCE]:
                 if p["link"] in seen: continue
                 src_name = name
+                if lang == "si" and not re.search(r"[\u0D80-\u0DFF]", p["title"]):
+                    continue   # සිංහල අක්ෂර නැති (ඉංග්‍රීසි) සිරස්තල මඟ හරින්න
                 if sid.startswith("gnews") and " - " in p["title"]:
                     # Google News: "සිරස්තලය - ප්‍රකාශකයා" -> ප්‍රකාශකයා මූලාශ්‍රය ලෙස
                     head, pub = p["title"].rsplit(" - ", 1)
